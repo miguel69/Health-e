@@ -25,18 +25,15 @@ public partial class _Default : HealthServicePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            ApplicationInfo info = ApplicationConnection.GetApplicationInfo();
-            AppName.Text += info.Name;
-            AppId.Text += info.Id.ToString();
+        
+        ApplicationInfo info = ApplicationConnection.GetApplicationInfo();
+        AppName.Text += info.Name;
+        AppId.Text += info.Id.ToString();
 
-            StartupData.SetActiveView(StartupData.Views[0]);
-        }
-        catch (HealthServiceException ex)
-        {
-            Error.Text += ex.ToString();
-            StartupData.SetActiveView(StartupData.Views[1]);
-        }
+        StartupData.SetActiveView(StartupData.Views[0]);
+
+        PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
+    
+       
     }
 }
