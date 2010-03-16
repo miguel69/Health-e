@@ -9,6 +9,7 @@ using System.Data;
 using System.Configuration;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.IO;
 
 using System.Web;
 using System.Web.Security;
@@ -25,18 +26,60 @@ public partial class _Default : HealthServicePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            ApplicationInfo info = ApplicationConnection.GetApplicationInfo();
-            AppName.Text += info.Name;
-            AppId.Text += info.Id.ToString();
+        PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
 
-            StartupData.SetActiveView(StartupData.Views[0]);
-        }
-        catch (HealthServiceException ex)
+        FullName_lbl.Text += PersonInfo.SelectedRecord.Name.ToString();
+
+        BasicV2 basic = GetSingleValue<BasicV2>(BasicV2.TypeId);
+        if (basic != null && basic.BirthYear.HasValue)
         {
-            Error.Text += ex.ToString();
-            StartupData.SetActiveView(StartupData.Views[1]);
+            BY_lbl.Text += basic.BirthYear.ToString();
+        }
+
+        Gender_lbl.Text += basic.Gender.ToString();
+        /*
+        PersonalImage personalImage = GetSingleValue<PersonalImage>(PersonalImage.TypeId);
+        Stream stream = personalImage.ReadImage();
+        byte[] imageBytes = new byte[stream.Length];
+        stream.Read(imageBytes, 0, (int)stream.Length);
+        FileStream outputImage = System.IO.File.OpenWrite(@"c:\y\213.jpg");
+        outputImage.Write(imageBytes, 0, imageBytes.Length);
+        */
+
+        Height height = GetSingleValue<Height>(Height.TypeId);
+        Weight weight = GetSingleValue<Weight>(Weight.TypeId);
+
+        Height_lbl.Text += height.Value.Value.ToString();
+        Weight_lbl.Text += weight.Value.DisplayValue.ToString();
+
+        //Country_lbl.Text = basic.Country.ToString();  
+
+
+    
+       
+    }
+    protected void StartupData_ActiveViewChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    T GetSingleValue<T>(Guid typeID) where T : class
+    {
+        HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
+
+        HealthRecordFilter filter = new HealthRecordFilter(typeID);
+        filter.MaxItemsReturned = 1;
+        searcher.Filters.Add(filter);
+
+        HealthRecordItemCollection items = searcher.GetMatchingItems()[0];
+
+        if (items != null && items.Count > 0)
+        {
+            return items[0] as T;
+        }
+        else
+        {
+            return null;
         }
     }
 }
