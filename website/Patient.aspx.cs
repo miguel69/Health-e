@@ -24,9 +24,37 @@ using Microsoft.Health.ItemTypes;
 
 public partial class _Default : HealthServicePage
 {
+    protected void Page_Prerender(object sender, EventArgs e)
+    {
+        HealthRecordItemCollection collection = PersonInfo.SelectedRecord.GetItemsByType(PersonalImage.TypeId, HealthRecordItemSections.All);
+
+        PersonalImage image = null;
+
+        String path = @"C:\Users\Miguel\Documents\Tec\10mo semestre\Proyecto integrador de tecnologías computacionales\Health-e\website\temp\temp.jpg";
+
+        if (collection.Count != 0)
+        {
+            image = collection[0] as PersonalImage;
+
+            using (Stream currentImageStream = image.ReadImage())
+            {
+                byte[] imageBytes = new byte[currentImageStream.Length];
+                currentImageStream.Read(imageBytes, 0, (int)currentImageStream.Length);
+
+
+
+                using (FileStream outputImage = System.IO.File.OpenWrite(path))
+                {
+                    outputImage.Write(imageBytes, 0, imageBytes.Length);
+                }
+            }
+        }
+        Profile_img.ImageUrl = "temp/temp.jpg";
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
+        //PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
 
         FullName_lbl.Text += PersonInfo.SelectedRecord.Name.ToString();
 
@@ -37,13 +65,19 @@ public partial class _Default : HealthServicePage
         }
 
         Gender_lbl.Text += basic.Gender.ToString();
+
         /*
-        PersonalImage personalImage = GetSingleValue<PersonalImage>(PersonalImage.TypeId);
-        Stream stream = personalImage.ReadImage();
-        byte[] imageBytes = new byte[stream.Length];
-        stream.Read(imageBytes, 0, (int)stream.Length);
-        FileStream outputImage = System.IO.File.OpenWrite(@"c:\y\213.jpg");
-        outputImage.Write(imageBytes, 0, imageBytes.Length);
+        if (image == null)
+        {
+            image = new PersonalImage();
+            image.WriteImage(imageStream, "image/jpg");
+            PersonInfo.SelectedRecord.NewItem(image);
+        }
+        else
+        {
+            image.WriteImage(imageStream, "image/jpg");
+            PersonInfo.SelectedRecord.UpdateItem(image);
+        }
         */
 
         Height height = GetSingleValue<Height>(Height.TypeId);

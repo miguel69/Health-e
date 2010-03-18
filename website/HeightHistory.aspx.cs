@@ -23,7 +23,7 @@ public partial class HeightHistory : HealthServicePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
+        //PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
         HealthRecordFilter filter = new HealthRecordFilter(Height.TypeId);
         searcher.Filters.Add(filter);

@@ -23,7 +23,7 @@ public partial class WeightHistory : HealthServicePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
+        //PersonName_lbl.Text = PersonInfo.SelectedRecord.DisplayName.ToString();
         HealthRecordSearcher searcher = PersonInfo.SelectedRecord.CreateSearcher();
         HealthRecordFilter filter = new HealthRecordFilter(Weight.TypeId);
         searcher.Filters.Add(filter);
