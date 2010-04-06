@@ -1,0 +1,92 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PatientMaster.master.cs" Inherits="PatientMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Welcome to Health-e</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type=text/css>
+       
+         html{
+         margin: 1px;
+         padding: 1px;
+         } 
+        body{
+        margin: 1px;
+        padding: 1px;
+        background-color: #bedcea;
+         }
+         h1
+         {
+         	font-family: Calibri, Sans-Serif;
+         	color: Maroon;
+         }
+         #menu{
+         background-color: rgb(66, 173, 222);
+         color: white;
+         font-family: caibri, sans-serif;
+         height: 70px;
+         
+         }
+      .container{
+        background-color: white;
+        margin: 0px auto;
+        width: 855px;        
+        min-height: 500px;
+       }
+       .splash_screen{
+        padding-top: 20px;
+        padding-left: 15px;
+        width: 410px;
+        height: 200px;
+        font-size: large;
+        border: 1px solid black;
+        font-family: calibri, sans-serif;
+        float: left;
+       }
+       .splash_screen2{
+        padding-top: 20px;
+        padding-left: 15px;
+        width: 410px;
+        height: 200px;
+        font-size: x-large;
+        border: 1px solid black;
+        font-family: calibri, sans-serif;
+        float: right;
+       }
+       .main_content{
+        height: 520px;
+        font-family: calibri, sans-serif;
+        color: black;
+        font-size: large;
+        border: 1px solid black;
+       }
+       
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="margin:0px auto; width: 855px;">
+            <asp:HyperLink ID="Healthe_hp" NavigateUrl="~/Default.aspx" ImageUrl="~/images/Health-e_logo_small.png" Target="_self" runat="server" />
+        </div>
+        <div class="container">
+            <!-- <b>Welcome, <asp:Label ID="PersonName_lbl" runat="server"/></b>  -->
+            <br />
+            <br />
+            <asp:HyperLink ID="Profile_hp" runat="server" NavigateUrl="~/Patient.aspx">Profile</asp:HyperLink>
+            &nbsp;|
+            <asp:HyperLink ID="HeightHistory_hp" runat="server" NavigateUrl="~/HeightHistory.aspx">Height History</asp:HyperLink>
+            &nbsp;|
+            <asp:HyperLink ID="WeightHistory_hp" runat="server" NavigateUrl="~/WeightHistory.aspx">Weight History</asp:HyperLink>
+            &nbsp;|
+            <asp:HyperLink ID="Allergies_hp" runat="server" NavigateUrl="~/Allergies.aspx">Allergies</asp:HyperLink>
+            <br />
+            <hr />
+            <asp:ContentPlaceHolder id="PageBody" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

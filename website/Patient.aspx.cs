@@ -26,30 +26,7 @@ public partial class _Default : HealthServicePage
 {
     protected void Page_Prerender(object sender, EventArgs e)
     {
-        HealthRecordItemCollection collection = PersonInfo.SelectedRecord.GetItemsByType(PersonalImage.TypeId, HealthRecordItemSections.All);
-
-        PersonalImage image = null;
-
-        String path = @"C:\Users\Miguel\Documents\Tec\10mo semestre\Proyecto integrador de tecnologías computacionales\Health-e\website\temp\temp.jpg";
-
-        if (collection.Count != 0)
-        {
-            image = collection[0] as PersonalImage;
-
-            using (Stream currentImageStream = image.ReadImage())
-            {
-                byte[] imageBytes = new byte[currentImageStream.Length];
-                currentImageStream.Read(imageBytes, 0, (int)currentImageStream.Length);
-
-
-
-                using (FileStream outputImage = System.IO.File.OpenWrite(path))
-                {
-                    outputImage.Write(imageBytes, 0, imageBytes.Length);
-                }
-            }
-        }
-        Profile_img.ImageUrl = "temp/temp.jpg";
+       
     }
 
     protected void Page_Load(object sender, EventArgs e)

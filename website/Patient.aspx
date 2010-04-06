@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="PageBody" runat="server">
             <asp:Label ID="Picture_lbl" runat="server" Text="Profile Picture: "/>
             <br />
-            <asp:Image ID="Profile_img" runat="server" Width="100" />
+            <asp:Image ID="Profile_img" runat="server" Width="100" ImageUrl="~/FetchProfilePicture.aspx" />
             <br />
             <asp:Label ID="FullName_lbl" runat="server" Text="Full name: " />
             <br />
